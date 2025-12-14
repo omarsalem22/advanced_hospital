@@ -3,7 +3,6 @@ package com.example.hospital.Util;
 import java.util.Date;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +13,10 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
-    @Value("${jwt.secret-key}")
-    private String SECRET_KEY;
-    @Value("${jwt.expiration-time}")
-    private long expirationTime;
+    // @Value("${jwt.secret-key}") Dont work with me
+    private String SECRET_KEY = "CFlrMMoGpaR8qKtYTLvrHoRRhO583ZZwhrbr4gB7Bds=";
+    // @Value("${jwt.expiration-time}")  Dont work with me  
+    private long expirationTime = 1000 * 60 * 60 * 10; // 10 hours
 
     public String generateToken(String email) {
 
@@ -25,7 +24,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.ES256)
+                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256) 
                 .compact();
 
     }
