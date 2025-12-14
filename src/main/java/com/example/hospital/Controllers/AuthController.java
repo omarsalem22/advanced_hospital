@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hospital.Services.UserService;
+import com.example.hospital.dto.UserLoginDto;
 import com.example.hospital.dto.UserRegistrationDto;
 
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,10 @@ public class AuthController {
 
 
     }
+    @PostMapping("/login")
+    public String loginUser(@RequestBody UserLoginDto userDto) {
+      return userService.verify(userDto);
+    }
+
 
 }

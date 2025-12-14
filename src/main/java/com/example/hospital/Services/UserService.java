@@ -3,10 +3,15 @@ package com.example.hospital.Services;
 import java.util.Collections;
 import java.util.HashSet;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.hospital.Repositories.UserRepository;
+import com.example.hospital.dto.UserLoginDto;
 import com.example.hospital.dto.UserRegistrationDto;
 import com.example.hospital.entity.User;
 import com.example.hospital.enums.Role;
@@ -18,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authManager;
 
     public User registerUser(UserRegistrationDto user) {
 
@@ -47,6 +53,18 @@ public class UserService {
         newUser.setRoles(new HashSet<>(Collections.singletonList(role)));
         return userRepository.save(newUser);
 
+    }
+
+    public String verify(UserLoginDto user) {
+try {
+        Authentication authentication = authManager.authenticate(
+            new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
+        );
+
+        return "User authenticated successfully";
+    } catch (AuthenticationException e) {
+        return "Invalid Credentials";
+    }
     }
 
 }

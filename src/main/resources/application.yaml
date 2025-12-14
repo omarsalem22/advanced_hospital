@@ -10,6 +10,7 @@ spring:
     
     driver-class-name: org.postgresql.Driver 
   security:
+  
   jwt:
     secret-key: "CFlrMMoGpaR8qKtYTLvrHoRRhO583ZZwhrbr4gB7Bds=" 
     expiration-time: 3600000  
