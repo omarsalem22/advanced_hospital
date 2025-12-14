@@ -22,6 +22,7 @@ public class JwtUtil {
     public String generateToken(String email) {
 
         return Jwts.builder()
+                .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.ES256)

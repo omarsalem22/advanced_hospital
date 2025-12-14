@@ -1,6 +1,6 @@
 package com.example.hospital.enums;
 
 public enum Role {
-USER,
+  USER,
   PATIENT, DOCTOR, ADMIN
 }

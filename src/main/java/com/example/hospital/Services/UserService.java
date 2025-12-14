@@ -55,16 +55,6 @@ public class UserService {
 
     }
 
-    public String verify(UserLoginDto user) {
-try {
-        Authentication authentication = authManager.authenticate(
-            new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword())
-        );
 
-        return "User authenticated successfully";
-    } catch (AuthenticationException e) {
-        return "Invalid Credentials";
-    }
-    }
 
 }
