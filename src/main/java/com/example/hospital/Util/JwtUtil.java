@@ -15,7 +15,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
     // @Value("${jwt.secret-key}") Dont work with me
     private String SECRET_KEY = "CFlrMMoGpaR8qKtYTLvrHoRRhO583ZZwhrbr4gB7Bds=";
-    // @Value("${jwt.expiration-time}")  Dont work with me  
+    // @Value("${jwt.expiration-time}") Dont work with me
     private long expirationTime = 1000 * 60 * 60 * 10; // 10 hours
 
     public String generateToken(String email) {
@@ -24,7 +24,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256) 
+                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
 
     }

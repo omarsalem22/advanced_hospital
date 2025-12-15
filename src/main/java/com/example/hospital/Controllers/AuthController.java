@@ -1,6 +1,5 @@
 package com.example.hospital.Controllers;
 
-import java.net.Authenticator;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
