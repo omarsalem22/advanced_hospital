@@ -1,20 +1,17 @@
 package com.example.hospital.dto;
 
-import java.util.UUID;
-
 import lombok.Data;
 
 @Data
-public class PatientResponseDTO {
-private UUID id;
-    private String username;
-    private String phoneNumber;
+public class PatientUpdateDTO {
+
     private String fullName;
     private String gender;
-    private String address;
     private String email;
 
+    private String address;
     private int age;
     private String medicalHistory;
+    private String phoneNumber;
 
 }
