@@ -1,6 +1,7 @@
 package com.example.hospital.Services;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.hospital.Repositories.PatientRepository;
 import com.example.hospital.Repositories.UserRepository;
 import com.example.hospital.dto.PatientRegistrationDTO;
+import com.example.hospital.dto.PatientResponseDTO;
 import com.example.hospital.entity.Patient;
 import com.example.hospital.entity.User;
 import com.example.hospital.enums.Role;
@@ -48,4 +50,26 @@ public class PatientService {
 
     }
 
+   public List<PatientResponseDTO> getAllPatients() {
+    return patientRepository.findAll().stream()
+        .map(patient -> {
+            PatientResponseDTO dto = new PatientResponseDTO();
+
+            dto.setFullName(patient.getFullName());
+            dto.setGender(patient.getGender());
+            dto.setAddress(patient.getAddress());
+            dto.setAge(patient.getAge());
+            dto.setMedicalHistory(patient.getMedicalHistory());
+
+            User user = patient.getUser();  
+            if (user != null) {
+                dto.setUsername(user.getUsername());
+                dto.setEmail(user.getEmail());
+                dto.setPhoneNumber(user.getPhoneNumber());
+            }
+
+            return dto;
+        })
+        .toList();
+}
 }
