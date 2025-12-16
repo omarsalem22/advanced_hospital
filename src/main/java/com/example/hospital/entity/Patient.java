@@ -2,6 +2,8 @@ package com.example.hospital.entity;
 
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Patient {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", unique = true, nullable = false)
+    @JsonIgnore 
     private User user;
 
     private String fullName;
@@ -34,8 +37,7 @@ public class Patient {
 
     private String address;
 
-    private int  age;
-
+    private int age;
 
     private String medicalHistory;
 
