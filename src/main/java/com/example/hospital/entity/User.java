@@ -18,6 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +26,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
+
 @Table(name = "hospital_user")
 public class User {
     @Id
@@ -34,7 +37,8 @@ public class User {
     @Column(unique = true, nullable = false)
 
     private String username;
-    private String password; // hashed password
+    private String password;
+    // hashed password
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -45,7 +49,7 @@ public class User {
     @Column(name = "role")
     private Set<Role> roles = new HashSet<>();
     @Column(name = "phone_number", unique = true, nullable = true)
-    
-    private String phoneNumber; 
+
+    private String phoneNumber;
 
 }

@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -25,6 +26,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString(exclude = "user")
 @Table(name = "patients")
+@Builder
+
 public class Patient {
 
     @Id
