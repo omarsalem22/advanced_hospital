@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import com.example.hospital.entity.Patient;
 import com.example.hospital.entity.User;
 import com.example.hospital.enums.Role;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -126,4 +129,19 @@ public class PatientService {
         return dto;
 
     }
-}
+
+    private Patient getCurrentPatient() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        return patientRepository.findByUserUsername(username)
+                .orElseThrow(() -> new RuntimeException("Patient profile not found"));
+    }
+
+public void deletePatient(UUID patientId) {
+    Patient patient = patientRepository.findById(patientId).orElseThrow(() ->
+     new EntityNotFoundException("can't find upatiend"));
+     
+     patientRepository.delete(patient);
+
+}}
