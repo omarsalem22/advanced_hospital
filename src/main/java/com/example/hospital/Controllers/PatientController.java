@@ -36,9 +36,15 @@ public class PatientController {
         return ResponseEntity.ok(patient);
     }
 
-    @GetMapping("/getAllPatient")
+    @GetMapping("")
     public List<PatientResponseDTO> getAllPatients() {
         return patientService.getAllPatients();
+    }
+
+    @GetMapping("/{id}")
+    public PatientResponseDTO getPatientById(@PathVariable UUID id) {
+        return patientService.getPatientById(id);
+
     }
 
     @PutMapping("/{id}")

@@ -1,12 +1,10 @@
 package com.example.hospital.dto;
 
-import java.util.UUID;
-
 import lombok.Data;
 
 @Data
 public class PatientResponseDTO {
-private UUID id;
+// private UUID id;
     private String username;
     private String phoneNumber;
     private String fullName;

@@ -60,7 +60,7 @@ public class PatientService {
         return patientRepository.findAll().stream()
                 .map(patient -> {
                     PatientResponseDTO dto = new PatientResponseDTO();
-                    dto.setId(patient.getId());
+                    // dto.setId(patient.getId());
 
                     dto.setFullName(patient.getFullName());
                     dto.setGender(patient.getGender());
@@ -144,4 +144,28 @@ public void deletePatient(UUID patientId) {
      
      patientRepository.delete(patient);
 
+}
+
+
+public PatientResponseDTO getPatientById(UUID patientId) {
+
+    Patient patient = patientRepository.findById(patientId)
+            .orElseThrow(() -> new RuntimeException("Patient not found"));
+
+    PatientResponseDTO dto = new PatientResponseDTO();
+    // dto.setId(patient.getId());
+    dto.setFullName(patient.getFullName());
+    dto.setGender(patient.getGender());
+    dto.setAddress(patient.getAddress());
+    dto.setAge(patient.getAge());
+    dto.setMedicalHistory(patient.getMedicalHistory());
+
+    User user = patient.getUser();
+    if (user != null) {
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setPhoneNumber(user.getPhoneNumber());
+    }
+
+    return dto;
 }}
