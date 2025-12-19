@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/doctors")
+@RequestMapping("/api/doctors/")
 public class DoctorController {
     private final DoctorService doctorService;
 
@@ -26,9 +27,16 @@ public class DoctorController {
         return ResponseEntity.ok(doctorService.registerDoctor(doctorDto));
     }
 
+    
     @GetMapping("")
 
     public List<DoctorResponsedto> getAllDoctors() {
         return doctorService.getAllDoctors();
+    }
+
+    @GetMapping("/{specialization}")
+
+    public List<DoctorResponsedto> getDoctorBySpecialization(@PathVariable String specialization) {
+        return doctorService.getDoctorbySpecialization(specialization);
     }
 }

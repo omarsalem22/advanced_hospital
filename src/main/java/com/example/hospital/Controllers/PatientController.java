@@ -22,7 +22,7 @@ import com.example.hospital.entity.Patient;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/patients")
+@RequestMapping("/api/patients/")
 public class PatientController {
     private final PatientService patientService;
 
@@ -47,7 +47,7 @@ public class PatientController {
 
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public PatientResponseDTO updatePatient(
             @PathVariable UUID id,
             @RequestBody PatientUpdateDTO updateDTO) {
@@ -55,7 +55,8 @@ public class PatientController {
         return patientService.updatePatient(id, updateDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
+    
     public ResponseEntity<Void> deletePatient(@PathVariable UUID id) {
         patientService.deletePatient(id);
         return ResponseEntity.noContent().build();

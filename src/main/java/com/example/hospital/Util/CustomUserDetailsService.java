@@ -1,7 +1,5 @@
 package com.example.hospital.Util;
 
-import java.util.Collections;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,10 +21,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("can't find" + email));
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + user.getRoles());
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword(), Collections.singletonList(authority));
 
+                var authorities = user.getRoles().stream()
+            .map(role -> new SimpleGrantedAuthority(role.name())) 
+            .toList();
+            return new org.springframework.security.core.userdetails.User(
+            user.getEmail(),
+            user.getPassword(),
+            authorities 
+    );
+
+       
     }
 
 }

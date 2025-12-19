@@ -50,6 +50,7 @@ public class PatientService {
         patient.setAge(dto.age());
         patient.setGender(dto.gender());
         patient.setAddress(dto.address());
+        patient.setPhoneNumber(dto.phoneNumber());
         patient.setMedicalHistory(dto.medicalHistory());
 
         return patientRepository.save(patient);
@@ -97,6 +98,9 @@ public class PatientService {
         if (updateDTO.getAge() > 0) {
             patient.setAge(updateDTO.getAge());
         }
+          if (updateDTO.getPhoneNumber() != null) {
+                patient.setPhoneNumber(updateDTO.getPhoneNumber());
+            }
         if (updateDTO.getMedicalHistory() != null) {
             patient.setMedicalHistory(updateDTO.getMedicalHistory());
         }

@@ -42,12 +42,14 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
 
     @Column(name = "role")
     private Set<Role> roles = new HashSet<>();
+    
     @Column(name = "phone_number", unique = true, nullable = true)
 
     private String phoneNumber;
