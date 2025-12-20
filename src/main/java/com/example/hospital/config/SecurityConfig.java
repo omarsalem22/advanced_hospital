@@ -27,10 +27,7 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/patients/registerPatient").permitAll()
-                        .requestMatchers("/api/doctors/register").permitAll()
-
-
+                        
                         .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/api/doctors/**").hasAuthority("DOCTOR")
                         .requestMatchers("/api/patients/me/**").hasAuthority("PATIENT")
