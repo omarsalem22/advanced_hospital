@@ -13,4 +13,9 @@ public interface DoctorRepository extends JpaRepository<Doctor, UUID> {
     List<Doctor> findBySpecialization(String specialization);
 
     Optional<Doctor> findByUserUsername(String username);
+
+
+    List<Doctor> findByExperienceYearsGreaterThan(int minYears);
+
+
 }

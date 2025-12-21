@@ -31,7 +31,7 @@ public class DoctorService {
         public List<DoctorResponsedto> getDoctorbySpecialization(String specialization) {
                 return doctorRepository.findBySpecialization(specialization).stream()
                                 .map(doctor -> DoctorResponsedto.builder()
-                                                // .username(doctor.getUser().getUsername())
+                                                .username(doctor.getUser().getUsername())
                                                 .phoneNumber(doctor.getUser().getPhoneNumber())
                                                 .specialization(doctor.getSpecialization())
                                                 .experienceYears(doctor.getExperienceYears())
@@ -39,4 +39,15 @@ public class DoctorService {
                                 .toList();
         }
 
+
+        public List<DoctorResponsedto> searchByMinExperience(int minYears) {
+                return doctorRepository.findByExperienceYearsGreaterThan(minYears).stream()
+                                .map(doctor -> DoctorResponsedto.builder()
+                                                .username(doctor.getUser().getUsername())
+                                                .phoneNumber(doctor.getUser().getPhoneNumber())
+                                                .specialization(doctor.getSpecialization())
+                                                .experienceYears(doctor.getExperienceYears())
+                                                .build())
+                                .toList();
+        }
 }

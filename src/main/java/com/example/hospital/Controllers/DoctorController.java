@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hospital.Services.DoctorService;
@@ -25,9 +26,15 @@ public class DoctorController {
         return doctorService.getAllDoctors();
     }
 
-    @GetMapping("/{specialization}")
+    @GetMapping("{specialization}")
 
     public List<DoctorResponsedto> getDoctorBySpecialization(@PathVariable String specialization) {
         return doctorService.getDoctorbySpecialization(specialization);
+    }
+
+@GetMapping("search/experience")
+
+    public List<DoctorResponsedto> searchByMinExperience(@RequestParam(name = "minYears",required=true) int minYears) {
+        return doctorService.searchByMinExperience(minYears);
     }
 }
