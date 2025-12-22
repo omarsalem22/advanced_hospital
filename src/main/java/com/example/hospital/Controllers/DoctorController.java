@@ -3,6 +3,7 @@ package com.example.hospital.Controllers;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,7 @@ public class DoctorController {
     }
 
     @DeleteMapping("delete/{doctorId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteDoctor(@PathVariable UUID doctorId) {
         return doctorService.deleteDoctor(doctorId);
     }
