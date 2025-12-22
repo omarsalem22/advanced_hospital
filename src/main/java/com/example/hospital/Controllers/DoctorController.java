@@ -1,7 +1,9 @@
 package com.example.hospital.Controllers;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class DoctorController {
     private final DoctorService doctorService;
 
-    
     @GetMapping("")
 
     public List<DoctorResponsedto> getAllDoctors() {
@@ -32,9 +33,15 @@ public class DoctorController {
         return doctorService.getDoctorbySpecialization(specialization);
     }
 
-@GetMapping("search/experience")
+    @GetMapping("search/experience")
 
-    public List<DoctorResponsedto> searchByMinExperience(@RequestParam(name = "minYears",required=true) int minYears) {
+    public List<DoctorResponsedto> searchByMinExperience(
+            @RequestParam(name = "minYears", required = true) int minYears) {
         return doctorService.searchByMinExperience(minYears);
+    }
+
+    @DeleteMapping("delete/{doctorId}")
+    public String deleteDoctor(@PathVariable UUID doctorId) {
+        return doctorService.deleteDoctor(doctorId);
     }
 }
