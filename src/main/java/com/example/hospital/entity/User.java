@@ -48,6 +48,7 @@ public class User {
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
 
     @Column(name = "role")
+    @Builder.Default
     private Set<Role> roles = new HashSet<>();
     
     @Column(name = "phone_number", unique = true, nullable = true)

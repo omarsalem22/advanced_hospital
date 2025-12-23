@@ -15,17 +15,20 @@ import com.example.hospital.entity.Patient;
 import com.example.hospital.entity.User;
 import com.example.hospital.enums.Role;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-   private final UserRepository userRepository;
+    private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
     private final PasswordEncoder passwordEncoder;
 
-   public User registerUser(UserRegistrationDto user) {
+    @Transactional
+
+    public User registerUser(UserRegistrationDto user) {
 
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email already in use");
@@ -53,7 +56,6 @@ public class UserService {
         newUser.setRoles(new HashSet<>(Collections.singletonList(role)));
         newUser = userRepository.save(newUser);
 
-       
         if (role == Role.DOCTOR) {
             if (user.getSpecialization() == null || user.getExperienceYears() == null) {
                 throw new IllegalArgumentException("Missing required fields for Doctor registration");
@@ -65,7 +67,8 @@ public class UserService {
                     .build();
             doctorRepository.save(doctor);
         } else if (role == Role.PATIENT) {
-            if (user.getFullName() == null || user.getAge() == null || user.getGender() == null || user.getAddress() == null || user.getMedicalHistory() == null) {
+            if (user.getFullName() == null || user.getAge() == null || user.getGender() == null
+                    || user.getAddress() == null || user.getMedicalHistory() == null) {
                 throw new IllegalArgumentException("Missing required fields for Patient registration");
             }
             Patient patient = new Patient();
@@ -82,6 +85,5 @@ public class UserService {
         return newUser;
 
     }
-
 
 }
